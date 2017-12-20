@@ -48,7 +48,11 @@ Version   : v$KSCRIPT_VERSION
 Website   : https://github.com/holgerbrandl/kscript
 """.trim()
 
-val KSCRIPT_CACHE_DIR = File(System.getenv("HOME")!!, ".kscript")
+val HOME_PATH = System.getenv("HOME") // *nix
+	?: System.getenv("HOMEPATH") // windows
+	?: throw IllegalStateException("Can't figure out home path")
+
+val KSCRIPT_CACHE_DIR = File(HOME_PATH, ".kscript")
 val SCRIPT_TEMP_DIR = createTempDir()
 
 fun main(args: Array<String>) {
